@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  DOCKER_BUILDKIT: 0 
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -20,10 +21,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Authenticate with the container registry
+      - name: Authenticate with GitHub Container Registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Authenticate with Docker Hub
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
