@@ -3,7 +3,9 @@ FROM docker.io/caddy:2-builder-alpine as builder
 RUN xcaddy build \
     --with github.com/caddy-dns/cloudflare@latest \
     --with github.com/mholt/caddy-dynamicdns@latest \
-    --with github.com/lucaslorentz/caddy-docker-proxy/v2@latest
+    --with github.com/lucaslorentz/caddy-docker-proxy/v2@latest \
+    --with github.com/tailscale/caddy-tailscale
+    
 
 FROM docker.io/caddy:2-alpine
 
